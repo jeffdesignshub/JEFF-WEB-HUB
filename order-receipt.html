@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Receipt - Jeff Designs Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <h2>Jeff Designs Hub</h2>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+    </ul>
+</nav>
+
+<section class="checkout">
+    <h2>Thank You for Your Order!</h2>
+
+    <p>Your order has been received. Here is your receipt:</p>
+
+    <div class="receipt-box" id="receipt-box">
+        <!-- Receipt items will appear here -->
+    </div>
+
+    <a href="index.html" class="checkout-btn">Back to Home</a>
+</section>
+
+<script>
+    // Load cart items from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let receiptBox = document.getElementById("receipt-box");
+
+    if(cart.length === 0){
+        receiptBox.innerHTML = "<p>No items in the order.</p>";
+    } else {
+        let total = 0;
+        receiptBox.innerHTML = "<ul>";
+        cart.forEach(item => {
+            receiptBox.innerHTML += `<li>${item.name} — KES ${item.price}</li>`;
+            total += item.price;
+        });
+        receiptBox.innerHTML += "</ul>";
+        receiptBox.innerHTML += `<h3>Total Paid: KES ${total}</h3>`;
+    }
+
+    // Clear cart after generating receipt
+    localStorage.removeItem("cart");
+</script>
+
+</body>
+</html>
